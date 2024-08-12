@@ -1,0 +1,103 @@
+{% extends "layouts.html" %}
+
+{% block title %}
+    Edit Campaign
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg bg-body-secondary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><h2 style="color:darkgreen;">InfluenceSync</h2></a>
+            <ul class="nav nav-tabs justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ url_for('sponsor_dash') }}"><h5>Dashboard</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('sponsor_campaigns') }}"><h5>Campaigns</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="{{ url_for('sponsor_find_inf') }}"><h5>Find Influencers</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="#"><h5>Profile</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="{{ url_for('home') }}"><h5>Logout</h5></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <h3 class="headings" style="color:darkgreen;">Edit your Campaign here</h3>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h3>Edit Campaign</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ url_for('edit_campaign', campaign_id=campaign.id) }}" method="POST">
+                            <div class="form-group mb-3">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" value="{{ campaign.name }}" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" id="description" name="description" required>{{ campaign.description }}</textarea>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="start_date">Start Date</label>
+                                <input type="date" class="form-control" id="start_date" name="start_date" value="{{ campaign.start_date }}" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="end_date">End Date</label>
+                                <input type="date" class="form-control" id="end_date" name="end_date" value="{{ campaign.end_date }}" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="budget">Budget</label>
+                                <input type="number" step="0.1" class="form-control" id="budget" name="budget" value="{{ campaign.budget }}" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="visibility">Visibility</label>
+                                <select class="form-control" id="visibility" name="visibility" required>
+                                    <option value="public" {% if campaign.visibility == 'public' %}selected{% endif %}>Public</option>
+                                    <option value="private" {% if campaign.visibility == 'private' %}selected{% endif %}>Private</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="goals">Goals</label>
+                                <input type="text" class="form-control" id="goals" name="goals" value="{{ campaign.goals }}" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="niche">Niche</label>
+                                <input type="text" class="form-control" id="niche" name="niche" value="{{ campaign.niche }}" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="status">Status</label>
+                                <select class="form-control" id="status" name="status" required>
+                                    <option value="active" {% if campaign.status == 'active' %}selected{% endif %}>Active</option>
+                                    <option value="completed" {% if campaign.status == 'completed' %}selected{% endif %}>Completed</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <button type="submit" class="btn btn-primary w-100">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+{% endblock %}

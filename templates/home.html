@@ -1,0 +1,59 @@
+{% extends "layouts.html" %}
+
+{% block title %}
+    Home - InfluenceSync
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="/static/styles.css">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="myclass">
+        <nav class="navbar navbar-expand-lg bg-body-secondary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"><h2 style="color:darkgreen;"><i>InfluenceSync</i></h2></a>
+            </div>
+        </nav>
+
+        <div class="myclass-section row">
+            <div class="col-lg-5 col-md-5 col-sm-12 text-center text-md-start">
+                <h1 style="font-family:cursive;">Welcome to <i>InfluenceSync</i></h1>
+                <h3 style="font-family:cursive;">Your one-stop platform for influencer engagement and sponsorship coordination</h3>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <a type="button" class="btn btn-secondary" href="{{ url_for('login') }}">Login</a>
+                    </div>
+                    <div class="col-lg-6">
+                        <a type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#signupModal">Sign-up</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <img src="{{ url_for('static', filename='img/home_pic2.jpg') }}" alt="Home Image"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Signup Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="signupModalLabel">Sign Up As</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to sign-up as an influencer or a sponsor?</p>
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('influencer_reg') }}" class="btn btn-primary">Sign Up as Influencer</a>
+                    <a href="{{ url_for('sponsor_reg') }}" class="btn btn-secondary">Sign Up as Sponsor</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

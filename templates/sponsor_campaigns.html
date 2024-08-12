@@ -1,0 +1,148 @@
+{% extends "layouts.html" %}
+
+{% block title %}
+    Sponsor Campaigns
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg bg-body-secondary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><h2 style="color:darkgreen;">InfluenceSync</h2></a>
+            <ul class="nav nav-tabs justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ url_for('sponsor_dash') }}"><h5>Dashboard</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('sponsor_campaigns') }}"><h5>Campaigns</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ url_for('sponsor_find_inf') }}"><h5>Find Influencers</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ url_for('sponsor_profile') }}"><h5>Profile</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ url_for('home') }}"><h5>Logout</h5></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <h3 class="headings" style="color:darkgreen; text-align:center">Active Campaigns</h3>
+    
+    <div class="filter-bar">
+        <form method="GET" action="{{ url_for('sponsor_campaigns') }}">
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" name="niche" class="form-control" placeholder="Enter niche" value="{{ request.args.get('niche', '') }}">
+                </div>
+                <div class="col-md-4">
+                    <select name="visibility" class="form-control">
+                        <option value="">Select visibility</option>
+                        <option value="Public" {% if request.args.get('visibility') == 'public' %}selected{% endif %}>Public</option>
+                        <option value="Private" {% if request.args.get('visibility') == 'private' %}selected{% endif %}>Private</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
+    <div class="row">
+        {% for campaign in campaigns %}
+        <div class="col-md-3">
+            <div class="card text-bg-light mb-3 border-light">
+                <h5 class="card-header text-bg-dark">{{ campaign.name }}</h5>
+                <div class="card-body">
+                    <p class="card-text">Niche: {{ campaign.niche }}</p>
+                    <p class="card-text">Budget: {{ campaign.budget }}</p>
+                    <p class="card-text">Progress: {{ campaign.progress }} </p>
+                    <a href="{{ url_for('campaign_details', campaign_id=campaign.id) }}" class="btn btn-secondary mt-3">View</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="text-center mt-3">
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCampaignModal" style="width:auto;">
+            Add New Campaign<br>
+            <i class="fa fa-plus " ></i>
+        </button>
+    </div>
+
+    <div class="modal fade" id="addCampaignModal" tabindex="-1" aria-labelledby="addCampaignModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCampaignModalLabel">Add New Campaign</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addCampaignForm" method="post" action="{{ url_for('add_campaign') }}">
+                        <div class="mb-3">
+                            <label for="campaignName" class="form-label">Campaign Name</label>
+                            <input type="text" class="form-control" id="campaignName" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="campaignDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="campaignDescription" name="description" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="campaignNiche" class="form-label">Niche</label>
+                            <select class="form-control" id="campaignNiche" name="niche" required>
+                                <option value="All">All</option>
+                                <option value="Tech">Tech</option>
+                                <option value="Fashion">Fashion</option>
+                                <option value="Beauty">Beauty</option>
+                                <option value="Gaming">Gaming</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Food">Food</option>
+                                <option value="Furniture">Furniture</option>
+                                <option value="Books">Books</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="campaignGoal" class="form-label">Goal</label>
+                            <input type="text" class="form-control" id="campaignGoal" name="goals" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="campaignBudget" class="form-label">Budget</label>
+                            <input type="number" class="form-control" id="campaignBudget" name="budget" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="campaignVisibility" class="form-label">Visibility</label>
+                            <select class="form-control" id="campaignVisibility" name="visibility">
+                                <option value="public">Public</option>
+                                <option value="private">Private</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="campaignStartDate" class="form-label">Start Date</label>
+                            <input type="date" class="form-control" id="campaignStartDate" name="start_date" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="campaignEndDate" class="form-label">End Date</label>
+                            <input type="date" class="form-control" id="campaignEndDate" name="end_date" required>
+                        </div>
+                        <div class="modal-footer">
+                                <button type="submit" class="btn btn-success" style="width: 30%;">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+{% endblock %}

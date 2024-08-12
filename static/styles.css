@@ -1,0 +1,134 @@
+*{
+    margin:0px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#main, #canvas {
+    border: 2px solid rgb(237, 233, 233) ;
+}
+
+#newmain {
+    border: 0px transparent;
+}
+
+#canvas{
+    width: 80%;
+    margin:auto;
+    height: auto;
+    background-color: rgb(220, 220, 221);
+}
+
+#form-body{
+    border:4px solid rgb(209, 213, 216);
+    width: 400px;
+    margin:auto;
+    margin-top: 100px;
+    padding: 15px;
+    background-color: rgb(233, 236, 239);
+    margin-bottom: 100px;
+    height: auto;
+    
+}
+
+.headings{
+    margin:3px;
+    padding-left: 10px;
+    padding-top: 5px;;
+    padding-bottom: 5px;
+}
+
+button {
+    width: 60%;
+    padding: 20px;
+}
+
+.modal-footer .btn {
+    margin: 0;
+    width:100%;
+}
+
+.signup-buttons {
+    text-align: center;
+    margin-top: 40px;
+
+}
+
+.signup-buttons p {
+    margin-bottom: 20px;
+}
+
+.signup-buttons .btn {
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+    background-color: #28a745;
+}
+
+.myclass{
+    height: 100vh;
+    margin: 0px;
+}
+
+.myclass-section {
+    align-items: center;
+    height: 100%;
+}
+
+.myclass-section h1{
+    font-weight: bold;
+    color: darkgreen;
+    font-size: 65px;
+    padding-bottom: 5%;
+}
+
+.myclass-section h3{
+    font-size: 30px;
+    padding-bottom: 5%;
+}
+
+.myclass-section a {
+    height: 45px;
+    width:100%;
+    background-color: rgb(63, 173, 63);
+}
+
+.myclass-section img {
+    width: 100%;
+    height: 100%;
+}
+
+/* for login page */
+
+.myclass-login{
+    height: 100vh;
+    margin: 0px;
+}
+
+.myclass-login-section {
+    align-items: center;
+    height: 80%;
+
+}
+
+.myclass-login-section img {
+    width: 100%;
+    height: 70%;
+    
+}
+
+.form-class{
+    padding-left: 4%;
+    padding-right: 4%;
+}
+
+
+
+.table {
+    margin:10px;
+}
+
+.profile-pic{
+    width: 80%;
+}

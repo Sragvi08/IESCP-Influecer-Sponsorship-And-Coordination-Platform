@@ -1,0 +1,164 @@
+{% extends "layouts.html" %}
+
+{% block title %}
+    Admin Dashboard
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Admin Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-secondary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><h2 style="color:darkgreen; text-align:center">InfluenceSync</h2></a>
+            <ul class="nav nav-tabs justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('admin_dash') }}"><h5>Dashboard</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ url_for('admin_sponsors') }}"><h5>Sponsors Stats</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ url_for('influencer_profile') }}"><h5>Influencers Stats</h5></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{{ url_for('home') }}"><h5>Logout</h5></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <br>
+    <div class="container mt-2">
+        <h2 class="headings" style="color:darkgreen;">Admin Dashboard</h3><br>
+
+        <div class="container-fluid px-4">
+            <div class="row g-3 ">
+                <div class="col-md-3">
+                    <div class="p-3 shadow-sm d-flex justify-content-around align-items-center rounded" style="background-color: rgb(161, 235, 161);">
+                        <div>
+                            <h2 class="fs-3">Total Users</h2>
+                            <h4 class="fs-4" style="text-align: center;">{{ total_users }}</h4>
+                        </div>
+                        <i class="fas fa-users fs-2 primary-text rounded-full secondary-bg p-3"></i>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3 shadow-sm d-flex justify-content-around align-items-center rounded" style="background-color: rgb(161, 235, 161);">
+                        <div>
+                            <h2 class="fs-3">Influencers</h2>
+                            <h4 class="fs-4" style="text-align: center;">{{ total_influencers }}</h4>
+                        </div>
+                        <i class="fas fa-user fs-1 primary-text rounded-full secondary-bg p-3"></i>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3 shadow-sm d-flex justify-content-around align-items-center rounded" style="background-color: rgb(161, 235, 161);">
+                        <div>
+                            <h2 class="fs-3">Sponsors</h2>
+                            <h4 class="fs-4" style="text-align: center;">{{ total_sponsors }}</h4>
+                        </div>
+                        <i class="fas fa-user fs-1 primary-text rounded-full secondary-bg p-3"></i>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="p-3 shadow-sm d-flex justify-content-around align-items-center rounded" style="background-color: rgb(161, 235, 161);">
+                        <div>
+                            <h2 class="fs-3">Campaigns</h2>
+                            <h4 class="fs-4" style="text-align: center;">{{ total_campaigns }}</h4>
+                        </div>
+                        <i class="fas fa-users fs-1 primary-text rounded-full secondary-bg p-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row my-5">
+            <div class="col-md-5">
+                <canvas id="barChart"></canvas>
+            </div>
+
+            <div class="col-md-7">
+                <div class="row">
+                    <div class="col-md-6">
+                        <canvas id="pieChart1"></canvas>
+                    </div>
+                    <div class="col-md-6">
+                        <canvas id="pieChart2"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    
+    // Bar Chart
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    const barChart = new Chart(barCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Campaigns', 'Ad Requests', 'Sponsors', 'Influencers'],
+            datasets: [{
+                label: '# of Items',
+                data: [{{ categories_data['campaigns']|safe}}, {{ categories_data['ad_requests']|safe }}, {{ categories_data['sponsors']|safe }}, {{ categories_data['influencers'] |safe}}],
+                backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(153, 102, 255, 0.2)'],
+                borderColor: ['rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(153, 102, 255, 1)'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 15,
+                    ticks: {
+                        stepSize: 2
+                    }
+                }
+            }
+        }
+    });
+
+    // Pie Chart 1
+    const pieCtx1 = document.getElementById('pieChart1').getContext('2d');
+    const pieChart1 = new Chart(pieCtx1, {
+        type: 'pie',
+        data: {
+            labels: ['Flagged Influencers', 'Normal Influencers', 'Flagged Sponsors', 'Normal Sponsors'],
+            datasets: [{
+                data: [{{ pie_chart_1_data['flagged_influencers']|safe }}, {{ pie_chart_1_data['normal_influencers']|safe}}, {{ pie_chart_1_data['flagged_sponsors']|safe}}, {{ pie_chart_1_data['normal_sponsors']|safe }}],
+                backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(255, 159, 64, 0.2)', 'rgba(54, 162, 235, 0.2)'],
+                borderColor: ['rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)', 'rgba(255, 159, 64, 1)', 'rgba(54, 162, 235, 1)'],
+                borderWidth: 1
+            }]
+        }
+    });
+
+    // Pie Chart 2 (Campaigns by Niche)
+    const pieCtx2 = document.getElementById('pieChart2').getContext('2d');
+    const pieChart2 = new Chart(pieCtx2, {
+        type: 'pie',
+        data: {
+            labels: [{% for niche, count in pie_chart_2_data.items() %}'{{ niche }}',{% endfor %}],
+            datasets: [{
+                data: [{% for niche, count in pie_chart_2_data.items() %}{{ count }},{% endfor %}],
+                backgroundColor: ['rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(54, 162, 235, 0.2)'],
+                borderColor: ['rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)', 'rgba(153, 102, 255, 1)', 'rgba(54, 162, 235, 1)'],
+                borderWidth: 1
+            }]
+        }
+    });
+
+    </script>
+{% endblock %}
+
