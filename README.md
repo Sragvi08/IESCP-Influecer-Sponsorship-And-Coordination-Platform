@@ -1,1 +1,1 @@
-# IESCP-Influecer-Sponsorship-And-Coordination-Platform
+# InfluenceSync - Influencer Engagement and Sponsor Coordination Platform
