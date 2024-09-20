@@ -85,11 +85,11 @@
                     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#viewModal{{ request.id }}">View</button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#acceptModal{{ request.id }}">Accept</button>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#acceptModal{{ request.id }}">Accept</button>
                 </td>
                 <td>
                     <form method="post" action="{{ url_for('reject_camp_request', request_id=request.id) }}">
-                        <button type="submit" class="btn btn-secondary">Reject</button>
+                        <button type="submit" class="btn btn-danger">Reject</button>
                     </form>
                 </td>
             </tr>

@@ -35,7 +35,7 @@
     <br>
     <h3 class="headings" style="color:darkgreen; text-align:center">Active Campaigns</h3>
     
-    <div class="filter-bar">
+    <div class="filter-bar mt-3">
         <form method="GET" action="{{ url_for('sponsor_campaigns') }}">
             <div class="row">
                 <div class="col-md-4">
@@ -44,8 +44,8 @@
                 <div class="col-md-4">
                     <select name="visibility" class="form-control">
                         <option value="">Select visibility</option>
-                        <option value="Public" {% if request.args.get('visibility') == 'public' %}selected{% endif %}>Public</option>
-                        <option value="Private" {% if request.args.get('visibility') == 'private' %}selected{% endif %}>Private</option>
+                        <option value="public" {% if request.args.get('visibility') == 'public' %}selected{% endif %}>Public</option>
+                        <option value="private" {% if request.args.get('visibility') == 'private' %}selected{% endif %}>Private</option>
                     </select>
                 </div>
                 <div class="col-md-4">

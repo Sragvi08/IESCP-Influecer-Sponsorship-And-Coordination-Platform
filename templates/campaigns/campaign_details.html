@@ -144,14 +144,17 @@
                         </button>
                     </td>
                     <td>
-                    <td><button type="button" class="btn btn-success" style="width:auto;">Done <i class="fa-solid fa-check-double"></i></button></td>
+                        <form action="{{ url_for('mark_ad_done', ad_request_id=ad.id) }}" method="POST">
+                            <button type="submit" class="btn btn-success" style="width:auto;">Done <i class="fa-solid fa-check-double"></i></button>
+                        </form>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 
     <h3 class="headings">Completed Ads</h3>
-    <table class="table table-light-info table-striped">
+    <table class="table table-light-info table-striped mt-1">
         <thead>
             <tr>
                 <th scope="col">No.</th>
@@ -167,12 +170,26 @@
                     <th scope="row">{{ loop.index }}</th>
                     <td>{{ ad.influencer.user.username }}</td>
                     <td>{{ ad.message }}</td>
-                    <td>${{ ad.payment_amount }}</td>
-                    <td><button type="button" class="btn btn-secondary">View</button></td>
+                    <td >${{ ad.payment_amount }}</td>
+                    <td>
+                        <button type="button" 
+                                style="width:auto"
+                                class="btn btn-secondary view-completed-ad-btn"
+                                data-bs-toggle="modal" 
+                                data-bs-target="#viewCompletedAdModal" 
+                                data-influencer="{{ ad.influencer.user.username }}"
+                                data-message="{{ ad.message }}"
+                                data-requirements="{{ ad.requirements }}"
+                                data-payment="{{ ad.payment_amount }}"
+                                data-status="{{ ad.status }}" >
+                            View
+                        </button>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+
 
         </div>
     </div>
@@ -198,6 +215,25 @@
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                     
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Structure for Viewing Completed Ads -->
+    <div class="modal fade" id="viewCompletedAdModal" tabindex="-1" aria-labelledby="viewCompletedAdModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewCompletedAdModalLabel">Completed Ad Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Influencer:</strong> <span id="modalCompletedInfluencer"></span></p>
+                    <p><strong>Message:</strong> <span id="modalCompletedMessage"></span></p>
+                    <p><strong>Requirements:</strong> <span id="modalCompletedRequirements"></span></p>
+                    <p><strong>Payment Amount:</strong> $<span id="modalCompletedPaymentAmount"></span></p>
+                    <p><strong>Status:</strong> <span id="modalCompletedStatus"></span></p>
                 </div>
             </div>
         </div>
@@ -232,5 +268,26 @@
                 });
             });
         });
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Handle view buttons for completed ads
+            const viewCompletedAdButtons = document.querySelectorAll('.view-completed-ad-btn');
+            viewCompletedAdButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const influencer = button.getAttribute('data-influencer');
+                    const message = button.getAttribute('data-message');
+                    const requirements = button.getAttribute('data-requirements');
+                    const payment = button.getAttribute('data-payment');
+                    const status = button.getAttribute('data-status');
+        
+                    document.getElementById('modalCompletedInfluencer').innerText = influencer;
+                    document.getElementById('modalCompletedMessage').innerText = message;
+                    document.getElementById('modalCompletedRequirements').innerText = requirements;
+                    document.getElementById('modalCompletedPaymentAmount').innerText = payment;
+                    document.getElementById('modalCompletedStatus').innerText = status;
+                });
+            });
+        });
+        
     </script>
 {% endblock %}
