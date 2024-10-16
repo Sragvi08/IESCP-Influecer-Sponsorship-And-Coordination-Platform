@@ -8,6 +8,8 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Database Models](#database-models)
+- [ER Diagram](#er-diagram)
+- [Screenshots](#screenshots)
 - [License](#license)
 
 ## Features
@@ -116,6 +118,17 @@ To run this project locally, follow these steps:
 
 ## ER Diagram
 ![image](https://github.com/user-attachments/assets/3ba9f6c0-8319-4720-9486-86d1965a4d6d)
+
+## Screeshots
+![image](https://github.com/user-attachments/assets/e8c38958-e343-4378-b45b-cba4acf8b27d)
+
+![image](https://github.com/user-attachments/assets/7cd4b080-a056-4f4f-8336-cf74e3834f0d)
+
+![image](https://github.com/user-attachments/assets/584a5f2e-b211-4247-8008-34292d7c8cf7)
+
+![image](https://github.com/user-attachments/assets/0071c5d1-3227-4ba7-af6c-0abb974013d3)
+
+![image](https://github.com/user-attachments/assets/97c96ded-3b2d-4ca0-8b44-c36143282b19)
 
 
 ## License
