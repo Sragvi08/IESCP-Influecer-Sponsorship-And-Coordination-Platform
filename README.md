@@ -114,6 +114,10 @@ To run this project locally, follow these steps:
 - `message`: Message from the influencer regarding the negotiation
 - `status`: Status (pending, accepted, rejected)
 
+## ER Diagram
+![image](https://github.com/user-attachments/assets/3ba9f6c0-8319-4720-9486-86d1965a4d6d)
+
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
