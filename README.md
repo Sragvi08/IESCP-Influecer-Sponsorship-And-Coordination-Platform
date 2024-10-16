@@ -8,9 +8,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Database Models](#database-models)
-- [Contributing](#contributing)
 - [License](#license)
-- [Contact](#contact)
 
 ## Features
 
@@ -115,14 +113,6 @@ To run this project locally, follow these steps:
 - `new_payment_amount`: Negotiated payment amount
 - `message`: Message from the influencer regarding the negotiation
 - `status`: Status (pending, accepted, rejected)
-
-## Contributing
-
-We welcome contributions to enhance InfluenceSync. Here's how you can contribute:
-- Fork the repository.
-- Create a new branch with a descriptive name.
-- Make changes and test them thoroughly.
-- Create a pull request, and include a detailed description of the changes.
 
 ## License
 
